@@ -1,18 +1,34 @@
 import streamlit as st
 
-# Main app logic
-st.title("Streamlit HTML Fragment Example")
+# Fragment for the header
+def header():
+    st.title("Customer Feedback App")
+    st.subheader("We value your feedback")
 
-st.write("Below is a custom HTML fragment:")
+# Fragment for the sidebar
+def sidebar():
+    st.sidebar.header("Navigation")
+    st.sidebar.button("Submit Feedback")
 
-# HTML fragment
-html_fragment = """
-<div style="border: 2px solid #4CAF50; padding: 20px; margin-top: 20px;">
-    <h2 style="color: #4CAF50;">Custom HTML Fragment</h2>
-    <p>This content is rendered using an HTML fragment in Streamlit.</p>
-    <button onclick="alert('Button clicked!')">Click me</button>
-</div>
-"""
+# Fragment for the feedback form
+def feedback_form():
+    st.write("## Submit Your Feedback")
+    
+    name = st.text_input("Name", "")
+    email = st.text_input("Email", "")
+    rating = st.slider("Rating (1-5)", 1, 5, 3)
+    comments = st.text_area("Comments", "")
+    
+    if st.button("Submit"):
+        if name and email and comments:
+            st.success("Thank you for your feedback!")
+        else:
+            st.error("Please fill out all the fields.")
+            
+def main():
+    header()
+    sidebar()
+    feedback_form()
 
-# Inject the HTML fragment into the Streamlit app
-st.markdown(html_fragment, unsafe_allow_html=True)
+if __name__ == "__main__":
+    main()
